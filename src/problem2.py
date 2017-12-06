@@ -2,8 +2,8 @@
 PRACTICE Test 1, problem 2.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Ruien Ni.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -55,7 +55,7 @@ def run_test_problem2a():
     window.continue_on_mouse_click()
 
     circle = rg.Circle(rg.Point(300, 100), 50)
-    rectangle = rg.Rectangle(rg.Point(300, 170), rg.Point(400, 120))
+    rectangle = rg.Rectangle(rg.Point(300, 120), rg.Point(400, 170))
     rectangle.outline_color = 'green'
     problem2a(circle, rectangle, window)
     window.close_on_mouse_click()
@@ -102,7 +102,7 @@ def problem2a(circle, rectangle, window):
       :type window:    rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #          Tests have been written for you (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -110,6 +110,26 @@ def problem2a(circle, rectangle, window):
     #    DIFFICULTY:      6
     #    TIME ESTIMATE:   10 to 15 minutes.
     # ------------------------------------------------------------------
+
+    circle.attach_to(window)
+    rectangle.attach_to(window)
+    top_right_corner = rg.Point(rectangle.corner_2.x,
+                                rectangle.corner_1.y)
+    bottom_left_corner = rg.Point(rectangle.corner_1.x,
+                                  rectangle.corner_2.y)
+    line = rg.Line(top_right_corner, bottom_left_corner)
+    line.arrow = 'last'
+
+
+    window.render()
+    line.attach_to(window)
+
+    window.continue_on_mouse_click()
+    window.render()
+    circle.fill_color = rectangle.outline_color
+    window.continue_on_mouse_click()
+    window.render()
+
 
 def run_test_problem2b():
     """ Tests the  problem2b   function. """
@@ -124,12 +144,12 @@ def run_test_problem2b():
     title += '6 on blue with delta=15, 3 on green with delta=50'
     window = rg.RoseWindow(550, 450, title)
 
-    rectangle = rg.Rectangle(rg.Point(100, 100), rg.Point(140, 120))
+    rectangle = rg.Rectangle(rg.Point(140, 100), rg.Point(100, 120))
     rectangle.fill_color = 'blue'
     problem2b(rectangle, 6, 15, window)
     window.continue_on_mouse_click()
 
-    rectangle = rg.Rectangle(rg.Point(400, 300), rg.Point(350, 200))
+    rectangle = rg.Rectangle(rg.Point(400, 200), rg.Point(350, 300))
     rectangle.fill_color = 'green'
     problem2b(rectangle, 3, 50, window)
     window.close_on_mouse_click()
@@ -173,7 +193,7 @@ def problem2b(rect, n, delta, win):
       :type win:    rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #          Tests have been written for you (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -181,6 +201,24 @@ def problem2b(rect, n, delta, win):
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:   15 to 25 minutes.
     # ------------------------------------------------------------------
+
+    rect.attach_to(win)
+    righttop = rg.Point(rect.corner_1.x + delta, rect.corner_1.y - delta)
+    leftbottom = rg.Point(rect.corner_2.x - delta, rect.corner_2.y + delta)
+
+    for k in range(n-1):
+        rectangle1 = rg.Rectangle(righttop, leftbottom)
+        righttop.x = righttop.x + delta
+        righttop.y = righttop.y - delta
+        leftbottom.x = leftbottom.x - delta
+        leftbottom.y = leftbottom.y + delta
+        rectangle1.attach_to(win)
+
+    win.render()
+
+
+
+
 
 
 # ----------------------------------------------------------------------
