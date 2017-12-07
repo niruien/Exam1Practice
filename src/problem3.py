@@ -97,6 +97,22 @@ def run_test_problem3a():
 
     window3.close_on_mouse_click()
 
+    # Test 5
+    title = 'Problem 3a. Test 5: Start at (60, 40), 20 lines'
+    window4 = rg.RoseWindow(450, 300, title)
+
+    point = rg.Point(60, 40)
+    expected = 101
+    answer = problem3a(window4, point, 11)
+    print()
+    print('Test 5 expected:', expected)
+    print('       actual:  ', answer)
+
+    window4.close_on_mouse_click()
+
+
+
+
     # ------------------------------------------------------------------
     # TO DO: 2 (continued).
     # Below this comment (or integrated with one of the above tests,
@@ -137,7 +153,7 @@ def problem3a(window, point, n):
         :type n:      int
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -145,6 +161,20 @@ def problem3a(window, point, n):
     #    DIFFICULTY:      7 or 8
     #    TIME ESTIMATE:   20 to 35 minutes.
     # ------------------------------------------------------------------
+    start = point
+    end = rg.Point(point.x, point.y + 50)
+    total = 0
+    for k in range(n):
+        line = rg.Line(start, end)
+        start.move_by(20,10)
+        end.move_by(20,10)
+        line.thickness = line.thickness + 2 * k
+        if line.thickness > 13:
+            line.thickness = 13
+        total = total + line.thickness
+        line.attach_to(window)
+        window.render()
+    return total
 
 
 def run_test_problem3b():
@@ -201,7 +231,7 @@ def problem3b(m, point1):
         :type point1: rg.Point
     """
     # ------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # DONE: 4. Implement and test this function.
     #          Tests have been written for you (above).
     #
     ####################################################################
@@ -214,6 +244,20 @@ def problem3b(m, point1):
     #    DIFFICULTY:      8 or 9
     #    TIME ESTIMATE:   20 to 30 minutes.
     # ------------------------------------------------------------------
+    window = rg.RoseWindow(400, 650)
+    x = point1.x
+    y = point1.y
+    total = 0
+    for j in range(m):
+        total = total + problem3a(window,point1,2*j+3)
+        window.render()
+        y = y + 60
+        point1 = rg.Point(x, y)
+    window.close_on_mouse_click()
+    return total
+
+
+
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
