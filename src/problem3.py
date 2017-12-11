@@ -166,8 +166,8 @@ def problem3a(window, point, n):
     total = 0
     for k in range(n):
         line = rg.Line(start, end)
-        start.move_by(20,10)
-        end.move_by(20,10)
+        start.move_by(20, 10)
+        end.move_by(20, 10)
         line.thickness = line.thickness + 2 * k
         if line.thickness > 13:
             line.thickness = 13
@@ -249,15 +249,12 @@ def problem3b(m, point1):
     y = point1.y
     total = 0
     for j in range(m):
-        total = total + problem3a(window,point1,2*j+3)
+        total = total + problem3a(window, point1, 2*j+3)
         window.render()
         y = y + 60
         point1 = rg.Point(x, y)
     window.close_on_mouse_click()
     return total
-
-
-
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
